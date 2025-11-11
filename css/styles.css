@@ -130,6 +130,155 @@ header {
 .how-it-works {
   padding-top: 80px;
 }
+
+/* HERO: two-column layout inside .container.hero-cols */
+.hero .hero-cols {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+.hero .hero-cols .left-col,
+.hero .hero-cols .right-col {
+  flex: 1; /* equal width columns by default */
+}
+@media (max-width: 720px) {
+  .hero .hero-cols {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* HERO ACTIONS: make hero buttons appear as link-style buttons */
+.hero .hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: center;
+}
+/* make hero action buttons use the same filled style as .link-button */
+.hero .hero-actions .link-button {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--white);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.hero .hero-actions .link-button:hover {
+  opacity: 0.95;
+}
+
+@media (max-width: 480px) {
+  .hero .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    align-items: stretch;
+  }
+  .hero .hero-actions .link-button {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+/* HERO IMAGE: responsive behaviour inside right-col */
+.hero .hero-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* store icons inside hero buttons */
+.hero .hero-actions .store-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+/* Apple icon should inherit the button color (monochrome) */
+.hero .hero-actions .store-icon.apple {
+  fill: currentColor;
+}
+/* Google Play SVG uses multi-color paths defined inline, keep original fills */
+.hero .hero-actions .link-button .store-icon.google {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+/* (badge image rules removed) */
+
+/* LINK SECTION: .dic container with left description and right form */
+.dic {
+  background: var(--green);
+  border-radius: 15px;
+  padding: 40px 32px;
+  display: grid;
+  grid-template-columns: 25% 75%; /* first column 25%, second 75% */
+  align-items: center;
+  gap: 24px;
+  color: var(--white);
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 40px;
+}
+.dic .description {
+  color: var(--white);
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+  max-width: 100%;
+  text-align: left;
+}
+.link-form {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-self: end; /* place form at the right column's end */
+}
+.link-input {
+  padding: 15px 100px;
+  border-radius: 8px;
+  border: none;
+  min-width: 220px;
+  font-size: 16px;
+}
+.link-button {
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--white);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: calc(100% - 40px);
+  }
+  .dic {
+    grid-template-columns: 1fr; /* stack into single column */
+    justify-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 20px;
+  }
+  .link-form {
+    width: 100%;
+    justify-self: center;
+    justify-content: center;
+  }
+  .link-input {
+    min-width: 0;
+    width: 100%;
+    max-width: 520px;
+  }
+}
 .how-it-works .step {
   margin-bottom: 50px;
 }
