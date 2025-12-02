@@ -8,6 +8,14 @@
   --dark-gray: rgba(39, 32, 66, 1);
   --background: rgba(249, 249, 249, 1);
 }
+
+/* Prevent overlap safety rule: ensure grid rows and columns use static positioning so numbers/headings don't overlap */
+
+/* Note: overlap safety rule scoped to the benefits section further below */
+/* .row, .col-left, .col-right {
+  position: static !important;
+} */
+
 h1 {
   font-size: 64px;
   font-family: Inter;
@@ -319,4 +327,212 @@ header {
 }
 .text-right .number {
   margin-left: auto;
+}
+
+/* Two-column, three-row grid (alternate section) */
+.two-column-rows {
+  padding: 80px 0;
+}
+.two-column-rows .grid-rows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 20px 32px;
+  align-items: center;
+}
+.two-column-rows .row {
+  margin: 0;
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--dark-gray);
+}
+.two-column-rows .row.row-1 {
+  grid-row: 1;
+}
+.two-column-rows .row.row-2 {
+  grid-row: 2;
+}
+.two-column-rows .row.row-3 {
+  grid-row: 3;
+}
+.two-column-rows .col-left {
+  grid-column: 1;
+  text-align: left;
+}
+.two-column-rows .col-right {
+  grid-column: 2;
+  text-align: left;
+}
+
+/* place the benefit images explicitly in the grid */
+.two-column-rows .img-row1 {
+  grid-row: 1;
+  grid-column: 2;
+}
+.two-column-rows .img-row2 {
+  grid-row: 2;
+  grid-column: 1;
+}
+.two-column-rows .img-row3 {
+  grid-row: 3;
+  grid-column: 2;
+}
+.two-column-rows .benefit-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* Row headings for two-column rows (Benefit titles) */
+.two-column-rows .row-heading {
+  color: #000;
+  font-family: Inter, sans-serif;
+  font-size: 33.943px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32.5px; /* 95.749% */
+  transform: translateY(2px); /* small vertical nudge to align with numbers */
+  margin: 0 0 140px;
+}
+
+/* Large green numbers for each benefit */
+.two-column-rows .benefit-number {
+  color: #75bf7a;
+  font-family: Inter, sans-serif;
+  font-size: 88px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 118.8px; /* 135% */
+  /* place number inline and offset from page left */
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 0 0 119px; /* top right bottom left */
+}
+
+/* Scoped overlap safety rule for only the benefits grid to avoid global side-effects */
+.two-column-rows .row,
+.two-column-rows .col-left,
+.two-column-rows .col-right {
+  position: static !important;
+}
+
+/* Align left-column paragraphs (rows 1 & 3) with the big numbers */
+.two-column-rows p.row.row-1.col-left,
+.two-column-rows p.row.row-3.col-left {
+  margin-left: 119px;
+}
+
+/* Place h3 headings for rows 1 & 3 to the right of the number and vertically aligned */
+.two-column-rows .row-1.row-heading,
+.two-column-rows .row-3.row-heading {
+  display: inline-block;
+  vertical-align: middle;
+  /* left offset relative to page: 119 (number) + 148 = 267 */
+  margin: 0 0 40px 148px; /* top right bottom left */
+}
+
+@media (max-width: 720px) {
+  .two-column-rows .grid-rows {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .two-column-rows .col-left,
+  .two-column-rows .col-right {
+    grid-column: 1;
+    text-align: center;
+  }
+  .two-column-rows .benefit-img {
+    max-width: 80%;
+  }
+  /* remove large offsets on small screens */
+  .two-column-rows .benefit-number {
+    margin-left: 0;
+    text-align: center;
+  }
+  .two-column-rows .img-row1,
+  .two-column-rows .img-row3 {
+    margin-right: 0;
+  }
+  /* reset heading and paragraph offsets on small screens */
+  .two-column-rows .row-1.row-heading,
+  .two-column-rows .row-3.row-heading {
+    display: block;
+    margin-left: 0;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .two-column-rows p.row.row-1.col-left,
+  .two-column-rows p.row.row-3.col-left {
+    margin-left: 0;
+  }
+}
+
+/* --- Benefits rows: ensure each benefit-row is a 2-column grid --- */
+.benefits .container > .benefit-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 32px;
+  align-items: center;
+  margin-top: 40px;
+}
+.benefits .container > .benefit-row .text {
+  grid-column: 1;
+  text-align: left;
+}
+.benefits .container > .benefit-row .image {
+  grid-column: 2;
+  text-align: right;
+}
+/* Row 2: swap columns (image left, text right) */
+.benefits .container > .benefit-row:nth-of-type(2) .text {
+  grid-column: 2;
+  text-align: left;
+}
+.benefits .container > .benefit-row:nth-of-type(2) .image {
+  grid-column: 1;
+  text-align: right;
+}
+
+/* Numeric labels next to benefit headings */
+.benefits .benefit-number {
+  color: #75bf7a;
+  font-family: Inter, sans-serif;
+  font-size: 88px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 118.8px; /* 135% */
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 18px;
+}
+.benefits .benefit-row .text h3 {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  font-size: 33.943px; /* keep previous row-heading sizing if needed */
+  font-weight: 400;
+}
+
+@media (max-width: 720px) {
+  .benefits .container > .benefit-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .benefits .container > .benefit-row .text,
+  .benefits .container > .benefit-row .image {
+    grid-column: auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .benefits .benefit-number {
+    display: block;
+    font-size: 56px;
+    margin: 0 auto 8px;
+  }
+  .benefits .benefit-row .text h3 {
+    display: block;
+  }
 }
